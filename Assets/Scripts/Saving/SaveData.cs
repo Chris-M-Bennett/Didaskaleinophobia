@@ -6,10 +6,7 @@ namespace Saving{
     [System.Serializable]
     public class SaveData
     {
-       // public Slider brightnessSlider, volumeSlider, fovSlider;
-       // public Dropdown graphicQualityDrop;
-       // public Toggle fullScreenToggle;
-        public float brightness, volume, cameraFov;
+        public float brightness, volume, cameraFov, sensitivity;
         public int quality;
         public bool fullScreen;
         public float[] playerPosition;
@@ -19,6 +16,7 @@ namespace Saving{
             brightness = settingsScript.brightnessSlider.value;
             volume = settingsScript.volumeSlider.value;
             cameraFov = settingsScript.fovSlider.value;
+            sensitivity = settingsScript.sensitivitySlider.value;
             quality = settingsScript.graphicQualityDrop.value;
             fullScreen = settingsScript.fullScreenToggle.isOn;
         }

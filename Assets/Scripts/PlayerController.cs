@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using DefaultNamespace.AudioScriptableObject;
 using JetBrains.Annotations;
+using UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -22,22 +23,25 @@ public class PlayerController : MonoBehaviour
 
     //serialized fields can stay private, but allow for modification in the unity editor
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private Canvas canvas;
+    private SettingsScript _settingsScript;
     
     private float _verticalCameraAngle;
 
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioEventWalking _eventWalking;
 
-    //creates a variable for the player attributes, which is a scriptable object 
-    //used to get the variables for walking, sprinting, health, etc
-    [SerializeField] public PlayerAttributes playerAttributes;
-    
-    
     [SerializeField] private float _minVerticalCameraAngle = -75f;
     [SerializeField] private float _maxVerticalCameraAngle = 75f;
+    
+    private float _sensitivityDelay;
     //[SerializeField] private float _jumpForce = 1f;
     //[SerializeField] private float _walkSpeed = 2f;
     //[SerializeField] private float _sprintSpeed = 8f;
+    
+    //creates a variable for the player attributes, which is a scriptable object 
+    //used to get the variables for walking, sprinting, health, etc
+    [SerializeField] public PlayerAttributes playerAttributes;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +49,7 @@ public class PlayerController : MonoBehaviour
         //retrieves the character controller component
         _characterController = GetComponent<CharacterController>();
         _audioSource = GetComponent<AudioSource>();
+        _settingsScript = canvas.GetComponent<SettingsScript>();
 
     }
 
@@ -152,6 +157,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void HandleCameraMovement()
     {
+        if(_sensitivityDelay >= _settingsScript.cameraSensitivity){
         //input camera axes
         Vector2 inputAxes = new Vector2(x: Input.GetAxisRaw("Horizontal_Camera"), y: Input.GetAxisRaw("Vertical_Camera"));
         //rotate character on the X axis ONLY
@@ -168,5 +174,14 @@ public class PlayerController : MonoBehaviour
         _verticalCameraAngle = Mathf.Clamp(_verticalCameraAngle, _minVerticalCameraAngle, _maxVerticalCameraAngle);
         
         playerCamera.transform.localEulerAngles = new Vector3(_verticalCameraAngle, 0f, 0f);
+        
+        //Resets delay on camera movement
+        _sensitivityDelay = 0.0f;
+        }else
+        {
+            _sensitivityDelay++;
+        }
+        //Sets camera FOV to FOV setting
+        playerCamera.fieldOfView = _settingsScript.cameraFov;
     }
 }
