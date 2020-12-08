@@ -5034,7 +5034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 963194227}
-  _canvas: {fileID: 2063574032}
+  canvas: {fileID: 2063574032}
   _audioSource: {fileID: 1108726819}
   _eventWalking: {fileID: 11400000, guid: 66ca5117c2de39e4bb3b54d267f9b41b, type: 2}
   _minVerticalCameraAngle: -75
@@ -8262,6 +8262,7 @@ MonoBehaviour:
   sensitivitySlider: {fileID: 1317973478}
   graphicQualityDrop: {fileID: 1124251250}
   fullScreenToggle: {fileID: 1711555072}
+  cameraFov: 60
   cameraSensitivity: 6
 --- !u!114 &2063574029
 MonoBehaviour:
