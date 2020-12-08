@@ -30,7 +30,7 @@ namespace UI{
         public void Volume_Sdr(float volume)
         {
             //Sets volume level of audio mixer to value of volume slider
-            audioMixer.SetFloat("Volume", volume);
+            audioMixer.SetFloat("MasterVolume", volume);
         }
         
         public void Brightness_Sdr(float level)
