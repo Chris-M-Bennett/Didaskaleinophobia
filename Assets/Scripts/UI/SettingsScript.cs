@@ -23,7 +23,6 @@ namespace UI{
             sensitivitySlider.value = data.sensitivity;
             graphicQualityDrop.value = data.quality;
             fullScreenToggle.isOn = data.fullScreen;
-            //Starts with settings panel hidden
             settingsPanel.SetActive(false);
         }
         
@@ -42,25 +41,22 @@ namespace UI{
         }
 
         public void Fov_sdr(float field)
-        {
-            //Sets camera's field of view to value of FOV slider
+        {//Sets camera's field of view to value of FOV slider
             cameraFov = field;
         }
         
         public void Sensitivity_Sdr(float sensitivity)
-        {
+        {//Sets camera's sensitivity to value of sensitivity slider
            cameraSensitivity = sensitivity;
         }
     
         public void Graphic_Drop(int quality)
-        {
-            //Sets graphic quality to selection from graphic dropdown
+        {//Sets graphic quality to selection from graphic dropdown
             QualitySettings.SetQualityLevel(quality);
         }
     
         public void FullScreen (bool toggle)
-        {
-            //Sets full screen Boolean to value of full screen toggle
+        {//Sets full screen Boolean to value of full screen toggle
             Screen.fullScreen = toggle;
         }
         
