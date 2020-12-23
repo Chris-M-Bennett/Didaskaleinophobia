@@ -11,19 +11,25 @@ public class MannequinRotation : InteractObject
     [SerializeField][Tooltip("Sets speed mannequin rotates at")]
     private float rotateSpeed = 50;
     private float angleLeft;
+    
+    [SerializeField] private AudioSource _audioSource;
 
     private void Start(){
         startRot = transform.eulerAngles.y;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public override void DoAction(Transform caller){
+        if (rotating == false)
+        {
+        _audioSource.Play();
          rotating = true;
          angleLeft += 90f;
-         //startRot = transform.eulerAngles.y;
+         }
     }
 
-    private void Update(){
-
+    private void Update()
+    {
         if (angleLeft > 0f)
         {
             float rotationThisTick = Time.deltaTime * rotateSpeed;
@@ -32,7 +38,7 @@ public class MannequinRotation : InteractObject
         
             transform.Rotate(Vector3.up * (rotationThisTick));
             angleLeft -= rotationThisTick;
-        }
+        }else{rotating = false;}
     }
     public int GetSolutionOrientation(){
         return (int)((Mathf.Repeat(Mathf.Round(transform.rotation.eulerAngles.y - startRot), 360f) / 90.0f)%4);

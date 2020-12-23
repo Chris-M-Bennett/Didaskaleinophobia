@@ -18,7 +18,10 @@ public class PlayerInteraction : MonoBehaviour
         {
             return;
         }
-        obj.GetComponent<Rigidbody>().isKinematic = true;
+        obj.GetComponent<Rigidbody>().useGravity = false;
+        obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation ;
+        obj.transform.parent = transform;
+        obj.Translate(this.transform.up);
         _carriedObject = obj.transform;
     }
     
@@ -26,7 +29,9 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (_carriedObject == obj)
         {
-            obj.GetComponent<Rigidbody>().isKinematic = false;
+            obj.GetComponent<Rigidbody>().useGravity = true;
+            obj.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None ;
+            obj.transform.parent = null;
             _carriedObject = null;
         }
     }
